@@ -37,12 +37,11 @@ export default function FoodCard({ food }: FoodCardProps) {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-200">
       {/* Image with its price badge */}
-      <div className="relative h-48 w-full">
-        <Image
+      <div className="relative h-48 w-full overflow-hidden">
+        <img
           src={normalized.restaurant_logo}
           alt={normalized.restaurant_name}
-          fill
-          className="object-cover"
+          className="w-full h-full object-cover"
         />
         <div className="absolute top-3 left-3 bg-orange-500 text-white px-3 py-1 rounded-md flex items-center gap-1">
           <span>🏷️</span>
@@ -56,14 +55,13 @@ export default function FoodCard({ food }: FoodCardProps) {
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             <div className="w-10 h-10 rounded-lg overflow-hidden bg-gray-100 flex-shrink-0">
-              <Image
+              <img
                 src={normalized.restaurant_logo}
                 alt={normalized.restaurant_name}
-                width={40}
-                height={40}
-                className="object-cover"
+                className="w-full h-full object-cover"
               />
             </div>
+
             <div>
               <h3 className="font-semibold text-gray-800">{food.food_name}</h3>
               <div className="flex items-center gap-1">
