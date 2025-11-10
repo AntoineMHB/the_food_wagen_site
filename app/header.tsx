@@ -3,9 +3,10 @@ import OrderCard from "./order_card";
 
 export default function Header() {
   return (
-    <div className="w-full min-h-[428px] bg-[#FFB30E]">
-      <div className="pl-6 sm:pl-10 md:pl-[80px] lg:pl-[120px] pt-[60px] pb-[50px] w-full max-w-[856px]">
-        <p className="font-bold text-[36px] sm:text-[44px] md:text-[52px] lg:text-[58px] leading-[100%] tracking-tight text-white">
+    <div className="w-full bg-[#FFB30E] flex flex-col lg:flex-row items-start lg:items-center">
+      {/* Left Section: Text + OrderCard */}
+      <div className="w-full lg:w-2/3 px-6 sm:px-10 md:px-[80px] lg:pl-[120px] pt-[40px] sm:pt-[50px] md:pt-[60px] pb-[50px]">
+        <p className="font-bold text-[28px] sm:text-[36px] md:text-[44px] lg:text-[52px] xl:text-[58px] leading-[100%] tracking-tight text-white">
           Are you starving?
         </p>
 
@@ -13,7 +14,18 @@ export default function Header() {
           Within a few clicks, find meals that are accessible near you
         </p>
 
-        <OrderCard />
+        <div className="w-full">
+          <OrderCard />
+        </div>
+      </div>
+
+      {/* Right Section: Image */}
+      <div className="w-full lg:w-1/3 h-auto relative pt-[50%] sm:pt-[45%] md:pt-[40%] lg:pt-[35%] px-6 sm:px-10 md:px-5 lg:pr-20">
+        <img
+          src="/image_header.png"
+          alt="header_image"
+          className="absolute top-0 left-0 w-full h-full object-cover rounded-xl"
+        />
       </div>
     </div>
   );
