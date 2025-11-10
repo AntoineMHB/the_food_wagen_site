@@ -2,13 +2,19 @@ import { Button } from "@/components/ui/button";
 
 export default function TopNavBar() {
   return (
-    <div className="flex flex-items justify-between h-16 w-auto bg-white pl-[120px] pr-[120px] pt-4 pb-4">
-      <div className="w-[150px] h-1">
-        <img src="/Logo.png" alt="Logo" />
+    <div className="flex items-center justify-between w-full bg-white py-4 px-6 sm:px-10 md:px-20 lg:px-[120px]">
+      {/* Logo */}
+      <div className="w-[100px] sm:w-[130px] md:w-[150px]">
+        <img
+          src="/Logo.png"
+          alt="Logo"
+          className="w-full h-auto object-contain"
+        />
       </div>
 
+      {/* Button */}
       <div>
-        <Button className="text-white rounded-[10px] h-8 w-[150px] bg-[#FF9A0E] shadow-amber-500">
+        <Button className="text-white text-sm sm:text-base rounded-xl sm:rounded-[10px] h-8 sm:h-9 md:h-10 w-[110px] sm:w-[130px] md:w-[150px] bg-[#FF9A0E] shadow-md hover:bg-[#ff8800] transition">
           Add Meal
         </Button>
       </div>
