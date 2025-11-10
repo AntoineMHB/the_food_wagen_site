@@ -76,8 +76,22 @@ export default function FeaturedFoods() {
 
       {hasMore && !showAll && (
         <div className="text-center mt-8">
-          <Button className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200">
+          <Button
+            className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 shadow-amber-600"
+            onClick={() => setShowAll(true)}
+          >
             Load More
+          </Button>
+        </div>
+      )}
+
+      {showAll && (
+        <div className="text-center mt-8">
+          <Button
+            className="bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-8 rounded-lg transition-colors duration-200 shadow-amber-600"
+            onClick={() => setShowAll(false)}
+          >
+            Load Less
           </Button>
         </div>
       )}
