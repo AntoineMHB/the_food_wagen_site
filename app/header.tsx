@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/card";
 import OrderCard from "./order_card";
+import FeaturedFoods from "@/components/FeaturedFoods";
 
 export default function Header() {
   return (
@@ -19,8 +20,7 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Right Section: Image */}
-      <div className="w-full lg:w-1/3 h-auto relative pt-[50%] sm:pt-[45%] md:pt-[40%] lg:pt-[35%] px-6 sm:px-10 md:px-5 lg:pr-20">
+      <div className="w-full lg:w-1/3 h-[300px] relative pt-[50%] sm:pt-[45%] md:pt-[40%] lg:pt-[35%] px-6 sm:px-10 md:px-5 lg:pr-20">
         <img
           src="/image_header.png"
           alt="header_image"
