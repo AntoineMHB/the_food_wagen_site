@@ -6,6 +6,7 @@ import { PiDotsThreeVerticalBold } from "react-icons/pi";
 
 interface FoodCardProps {
   food: Food;
+  onOpenEdit: () => void;
 }
 
 const normalizedFoodData = (food: Food) => ({
@@ -31,7 +32,7 @@ const normalizedFoodData = (food: Food) => ({
     food.restaurant_status || food.restaurant?.status || "Unknown",
 });
 
-export default function FoodCard({ food }: FoodCardProps) {
+export default function FoodCard({ food, onOpenEdit }: FoodCardProps) {
   const [showMenu, setShowMenu] = useState(false);
   const normalized = normalizedFoodData(food);
 
@@ -114,7 +115,10 @@ export default function FoodCard({ food }: FoodCardProps) {
 
             {showMenu && (
               <div className="absolute right-5  bg-white border border-gray-200 rounded-md shadow-lg py-1 z-10 min-w-20">
-                <button className="block w-full h-[25px] text-left px-4 py-2 text-sm hover:bg-gray-100">
+                <button
+                  onClick={onOpenEdit}
+                  className="block w-full h-[25px] text-left px-4 py-2 text-sm hover:bg-gray-100"
+                >
                   Edit
                 </button>
                 <button

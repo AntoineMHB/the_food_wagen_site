@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { Form } from "./ui/form";
+import { Food } from "@/types/Food";
 
 interface PopupFormProps {
   onClose: () => void;
+  food: Food;
 }
 
 interface FormData {
@@ -16,7 +18,7 @@ interface FormData {
   restaurant_name: string;
 }
 
-export default function PopupForm({ onClose }: PopupFormProps) {
+export default function PopupForm({ onClose, food }: PopupFormProps) {
   const [formData, setFormData] = useState<FormData>({
     name: "",
     avatar: "",
@@ -38,9 +40,9 @@ export default function PopupForm({ onClose }: PopupFormProps) {
 
     try {
       const response = await fetch(
-        "https://6852821e0594059b23cdd834.mockapi.io/Food",
+        `https://6852821e0594059b23cdd834.mockapi.io/Food/${food.id}`,
         {
-          method: "POST",
+          method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
@@ -74,7 +76,7 @@ export default function PopupForm({ onClose }: PopupFormProps) {
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex justify-center items-center z-50 px-4 sm:px-0">
       <div className="bg-white p-5 sm:p-6 rounded-2xl shadow-lg w-full max-w-sm sm:max-w-md md:max-w-lg">
         <h2 className="text-lg sm:text-xl font-semibold mb-4 text-[#FF9A0E] text-center">
-          Add a meal
+          Edit Meal
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -163,7 +165,7 @@ export default function PopupForm({ onClose }: PopupFormProps) {
               type="submit"
               className="px-4 py-2 font-bold bg-[linear-gradient(97.86deg,#FFBA26_-8.95%,#FF9A0E_109.24%)] text-white rounded-lg hover:bg-amber-500 transition w-[301px] shadow-amber-400"
             >
-              Add
+              Save
             </button>
 
             <button

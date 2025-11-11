@@ -4,6 +4,7 @@ import { Food } from "@/types/Food";
 import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import FoodCard from "./FoodCard";
+import EditMealForm from "./EditMealForm";
 
 const ITEMS_PER_ROW = 4;
 const INITIAL_ROWS = 2;
@@ -14,6 +15,9 @@ export default function FeaturedFoods() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
+  const [isOpenEdit, setIsOpenEdit] = useState<boolean>(false);
+
+  const [selectedFood, setSelectedFood] = useState<Food | null>(null);
 
   useEffect(() => {
     fetchFoods();
@@ -70,9 +74,20 @@ export default function FeaturedFoods() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {displayedFoods.map((food) => (
-          <FoodCard key={food.id} food={food} />
+          <FoodCard
+            key={food.id}
+            food={food}
+            onOpenEdit={() => setSelectedFood(food)}
+          />
         ))}
       </div>
+
+      {selectedFood && (
+        <EditMealForm
+          onClose={() => setSelectedFood(null)}
+          food={selectedFood}
+        />
+      )}
 
       {hasMore && !showAll && (
         <div className="text-center mt-8">
