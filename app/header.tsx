@@ -1,9 +1,16 @@
 import { Card } from "@/components/ui/card";
-import OrderCard from "./order_card";
+import OrderCard from "./searchCard";
 import FeaturedFoods from "@/components/FeaturedFoods";
 import { useState } from "react";
+import SearchCard from "./searchCard";
 
-export default function Header() {
+interface HeaderProps {
+  onSearch: (query: string) => void;
+}
+
+export default function Header({ onSearch }: HeaderProps) {
+  // const [searchQuery, setSearchQuery] = useState("");
+
   return (
     <div className="w-full bg-[#FFB30E] flex flex-col lg:flex-row items-start lg:items-center">
       {/* Left Section: Text + OrderCard */}
@@ -17,7 +24,7 @@ export default function Header() {
         </p>
 
         <div className="w-full">
-          <OrderCard />
+          <SearchCard onSearch={onSearch} />
         </div>
       </div>
 

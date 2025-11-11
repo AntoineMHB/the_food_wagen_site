@@ -11,7 +11,11 @@ const ITEMS_PER_ROW = 4;
 const INITIAL_ROWS = 2;
 const INITIAL_ITEMS = ITEMS_PER_ROW * INITIAL_ROWS;
 
-export default function FeaturedFoods() {
+interface FeaturedFoodsProps {
+  searchQuery: string;
+}
+
+export default function FeaturedFoods({ searchQuery }: FeaturedFoodsProps) {
   const [foods, setFoods] = useState<Food[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -22,15 +26,18 @@ export default function FeaturedFoods() {
 
   useEffect(() => {
     fetchFoods();
-  }, []);
+  }, [searchQuery]);
 
   const fetchFoods = async () => {
     try {
       setLoading(true);
+      const url = searchQuery
+        ? `https://6852821e0594059b23cdd834.mockapi.io/Food?name=${encodeURIComponent(
+            searchQuery
+          )}`
+        : "https://6852821e0594059b23cdd834.mockapi.io/Food";
 
-      const response = await fetch(
-        "https://6852821e0594059b23cdd834.mockapi.io/Food"
-      );
+      const response = await fetch(url);
 
       if (!response.ok) {
         throw new Error("Failed to fetch foods");

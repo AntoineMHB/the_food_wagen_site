@@ -1,10 +1,22 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { useState } from "react";
 import { FaMotorcycle } from "react-icons/fa";
 import { FaBagShopping } from "react-icons/fa6";
 import { IoSearch } from "react-icons/io5";
 
-export default function OrderCard() {
+interface SearchCardProps {
+  onSearch: (query: string) => void;
+}
+
+export default function SearchCard({ onSearch }: SearchCardProps) {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearch = () => {
+    onSearch(searchTerm.trim());
+  };
   return (
     <div>
       <Card className="p-3 sm:p-4 md:p-5 w-full max-w-[660px] rounded-[15px] shadow-sm">
@@ -33,13 +45,20 @@ export default function OrderCard() {
           {/* Search Box */}
           <div className="flex items-center w-full sm:w-[450px] bg-[#F5F5F5] rounded-[10px] px-3 py-3">
             <IoSearch size={20} color="#F17228" className="shrink-0" />
-            <p className="text-[#9E9E9E] text-[15px] leading-[100%] pl-2 truncate">
-              What do you like to eat today?
-            </p>
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="What do you like to eat today?"
+              className="text-[#9E9E9E] text-[15px] leading-[100%] pl-2 focus:outline-none  truncate w-full h-full"
+            />
           </div>
 
           {/* Button */}
-          <Button className="bg-[linear-gradient(95.71deg,#FF7A7A_-39.64%,#F75900_135.31%)] w-full sm:w-[150px] h-[50px] rounded-[10px] flex items-center justify-center space-x-2 text-white text-[15px] leading-[100%]">
+          <Button
+            onClick={handleSearch}
+            className="bg-[linear-gradient(95.71deg,#FF7A7A_-39.64%,#F75900_135.31%)] w-full sm:w-[150px] h-[50px] rounded-[10px] flex items-center justify-center space-x-2 text-white text-[15px] leading-[100%] hover:bg-amber-500"
+          >
             <IoSearch size={20} />
             <p>Find Meal</p>
           </Button>
