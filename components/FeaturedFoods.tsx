@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import FoodCard from "./FoodCard";
 import EditMealForm from "./EditMealForm";
+import DeleteForm from "./DeleteForm";
 
 const ITEMS_PER_ROW = 4;
 const INITIAL_ROWS = 2;
@@ -78,6 +79,7 @@ export default function FeaturedFoods() {
             key={food.id}
             food={food}
             onOpenEdit={() => setSelectedFood(food)}
+            onOpenDelete={() => setSelectedFood(food)}
           />
         ))}
       </div>
@@ -87,6 +89,10 @@ export default function FeaturedFoods() {
           onClose={() => setSelectedFood(null)}
           food={selectedFood}
         />
+      )}
+
+      {selectedFood && (
+        <DeleteForm food={selectedFood} onClose={() => setSelectedFood(null)} />
       )}
 
       {hasMore && !showAll && (
