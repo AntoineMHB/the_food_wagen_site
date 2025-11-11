@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import OrderCard from "./order_card";
 import FeaturedFoods from "@/components/FeaturedFoods";
+import { useState } from "react";
 
 export default function Header() {
   return (
