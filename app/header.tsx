@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import OrderCard from "./searchCard";
+
 import FeaturedFoods from "@/components/FeaturedFoods";
 import { useState } from "react";
 import SearchCard from "./searchCard";

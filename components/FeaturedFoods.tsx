@@ -39,6 +39,12 @@ export default function FeaturedFoods({ searchQuery }: FeaturedFoodsProps) {
 
       const response = await fetch(url);
 
+      if (response.status === 404) {
+        setFoods([]);
+        setError(null);
+        return;
+      }
+
       if (!response.ok) {
         throw new Error("Failed to fetch foods");
       }

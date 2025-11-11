@@ -10,6 +10,13 @@ import AddMealForm from "@/components/AddMealForm";
 
 export default function Home() {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (query: string) => {
+    console.log("Search query received:", query);
+    setSearchQuery(query);
+  };
+
   return (
     <div>
       <TopNavBar onOpen={() => setIsOpen(true)} />
@@ -18,8 +25,8 @@ export default function Home() {
           isOpen ? "blur-sm pointer-events-none" : ""
         }`}
       >
-        <Header />
-        <FeaturedFoods />
+        <Header onSearch={handleSearch} />
+        <FeaturedFoods searchQuery={searchQuery} />
         <Footer />
       </div>
 
