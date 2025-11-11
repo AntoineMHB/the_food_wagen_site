@@ -2,6 +2,7 @@ import { Food } from "@/types/Food";
 import { useState } from "react";
 import Image from "next/image";
 import { Button } from "./ui/button";
+import { PiDotsThreeVerticalBold } from "react-icons/pi";
 
 interface FoodCardProps {
   food: Food;
@@ -33,6 +34,35 @@ const normalizedFoodData = (food: Food) => ({
 export default function FoodCard({ food }: FoodCardProps) {
   const [showMenu, setShowMenu] = useState(false);
   const normalized = normalizedFoodData(food);
+
+  const handleDelete = async () => {
+    if (!food.id) return;
+
+    const confirmDelete = window.confirm(
+      `Are you sure you want to delete ${normalized.food_name}?`
+    );
+    if (!confirmDelete) return;
+
+    try {
+      const response = await fetch(
+        `https://6852821e0594059b23cdd834.mockapi.io/Food/${food.id}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to delete item");
+      }
+
+      alert("Item deleted successfully!");
+
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deleting item:", error);
+      alert("Something went wrong while deleting.");
+    }
+  };
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-200">
@@ -75,21 +105,24 @@ export default function FoodCard({ food }: FoodCardProps) {
 
           {/* Three dots menu */}
           <div className="relative">
-            <Button
+            <button
               onClick={() => setShowMenu(!showMenu)}
               className="p-1 hover:bg-gray-100 rounded"
             >
-              <span className="text-gray-600">⋮</span>
-            </Button>
+              <PiDotsThreeVerticalBold size={20} color="#424242" />
+            </button>
 
             {showMenu && (
-              <div className="absolute right-0 mt-1 bg-white border border-gray-200 rounded-md shadow-lg py-1 z-10 min-w-[100px]">
-                <Button className="block w-full text-left px-4 py-2 text-sm hover:bg-gray-100">
+              <div className="absolute right-5  bg-white border border-gray-200 rounded-md shadow-lg py-1 z-10 min-w-20">
+                <button className="block w-full h-[25px] text-left px-4 py-2 text-sm hover:bg-gray-100">
                   Edit
-                </Button>
-                <Button className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                </button>
+                <button
+                  onClick={handleDelete}
+                  className=" block w-full h-[25px] text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                >
                   Delete
-                </Button>
+                </button>
               </div>
             )}
           </div>
