@@ -20,9 +20,9 @@ export default function FeaturedFoods({ searchQuery }: FeaturedFoodsProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
-  const [isOpenEdit, setIsOpenEdit] = useState<boolean>(false);
 
   const [selectedFood, setSelectedFood] = useState<Food | null>(null);
+  const [isEditMode, setIsEditMode] = useState(false); // Track which form to show
 
   useEffect(() => {
     fetchFoods();
@@ -59,6 +59,21 @@ export default function FeaturedFoods({ searchQuery }: FeaturedFoodsProps) {
     }
   };
 
+  const handleOpenEdit = (food: Food) => {
+    setSelectedFood(food);
+    setIsEditMode(true);
+  };
+
+  const handleOpenDelete = (food: Food) => {
+    setSelectedFood(food);
+    setIsEditMode(false);
+  };
+
+  const handleClose = () => {
+    setSelectedFood(null);
+    setIsEditMode(false);
+  };
+
   const displayedFoods = showAll ? foods : foods.slice(0, INITIAL_ITEMS);
   const hasMore = foods.length > INITIAL_ITEMS;
 
@@ -91,21 +106,20 @@ export default function FeaturedFoods({ searchQuery }: FeaturedFoodsProps) {
           <FoodCard
             key={food.id}
             food={food}
-            onOpenEdit={() => setSelectedFood(food)}
-            onOpenDelete={() => setSelectedFood(food)}
+            onOpenEdit={() => handleOpenEdit(food)}
+            onOpenDelete={() => handleOpenDelete(food)}
           />
         ))}
       </div>
 
-      {selectedFood && (
-        <EditMealForm
-          onClose={() => setSelectedFood(null)}
-          food={selectedFood}
-        />
+      {/* Show Edit form only when in edit mode */}
+      {selectedFood && isEditMode && (
+        <EditMealForm onClose={handleClose} food={selectedFood} />
       )}
 
-      {selectedFood && (
-        <DeleteForm food={selectedFood} onClose={() => setSelectedFood(null)} />
+      {/* Show Delete form only when NOT in edit mode */}
+      {selectedFood && !isEditMode && (
+        <DeleteForm food={selectedFood} onClose={handleClose} />
       )}
 
       {hasMore && !showAll && (
